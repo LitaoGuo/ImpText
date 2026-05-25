@@ -45,7 +45,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Recompute ImpText metrics from a results JSONL file.")
     parser.add_argument("--dataset", default="imptext_bench/dataset.jsonl")
     parser.add_argument("--results", required=True, help="JSONL with id and prediction_raw fields.")
-    parser.add_argument("--threshold", type=float, default=0.5)
+    parser.add_argument("--threshold", type=float, default=0.5, help="NED tolerance threshold tau for TMS. Default: 0.5.")
     parser.add_argument("--output", default=None)
     args = parser.parse_args()
 

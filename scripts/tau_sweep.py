@@ -126,7 +126,7 @@ def write_markdown(rows: list[dict], thresholds: list[float], model_names: list[
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Sweep TMS/NED thresholds for one or more ImpText result files.")
+    parser = argparse.ArgumentParser(description="Sweep NED tolerance thresholds tau for one or more ImpText result files.")
     parser.add_argument("--dataset", default="imptext_bench/dataset.jsonl")
     parser.add_argument(
         "--results",
@@ -134,7 +134,7 @@ def main() -> int:
         required=True,
         help="Result file as name=path or just path. Can be repeated.",
     )
-    parser.add_argument("--thresholds", default="0.1,0.3,0.5,0.7,0.9")
+    parser.add_argument("--thresholds", default="0.1,0.3,0.5,0.7,0.9", help="Comma-separated NED tolerance thresholds tau.")
     parser.add_argument("--output-dir", default="outputs/tau_sweep")
     args = parser.parse_args()
 
@@ -179,4 +179,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

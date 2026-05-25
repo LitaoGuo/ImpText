@@ -1,7 +1,7 @@
 # ImpText-Bench Metadata
 
-This directory contains the benchmark JSONL manifests. The image files are not
-stored in the GitHub repository; they will be released separately.
+This directory contains the benchmark JSONL manifests. The image files are
+hosted outside the GitHub code repository.
 
 Expected image layout:
 
@@ -17,6 +17,20 @@ The full manifest has 1,630 records:
 - 489 implicit-text samples across physical deformation, visual camouflage, and
   cognitive suggestion categories.
 
+The taxonomy follows the ImpText-Bench definition:
+
+| Primary category | Sub-category | Count |
+| --- | --- | ---: |
+| Benign Samples | Normal Images | 1,141 |
+| Physical Deformation | Stretching | 58 |
+| Visual Camouflage | Adversarial Texture | 134 |
+| Visual Camouflage | Visual Distraction | 93 |
+| Visual Camouflage | Environmental Fusion | 73 |
+| Visual Camouflage | Irregular Typography | 28 |
+| Cognitive Suggestion | Contextual Completion | 61 |
+| Cognitive Suggestion | Implicit Dialogue | 42 |
+| **Total** | **All Samples** | **1,630** |
+
 Files tracked in GitHub:
 
 - `dataset.jsonl`: full 1,630-record manifest.
@@ -26,7 +40,7 @@ Files tracked in GitHub:
 - `missing_images.txt`: expected to be empty after the external image package is
   placed under `images/`.
 
-Dataset image assets will be released separately.
+Dataset image assets are distributed as an external package.
 
 After downloading the image package, validate local coverage from the repository
 root:

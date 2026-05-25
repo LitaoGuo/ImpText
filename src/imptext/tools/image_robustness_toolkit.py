@@ -34,8 +34,8 @@ class ImageRobustnessToolkit:
 
     def adaptive_thresholding(self, image_source, output_path=None):
         """
-        1. 自适应二值化 (Adaptive Thresholding)
-        根据局部光照自动计算阈值，去除背景纹理，提取文字骨架。
+        Adaptive thresholding.
+        Estimate local thresholds to suppress background texture and isolate text strokes.
         """
         img = self._load_image(image_source)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -46,8 +46,8 @@ class ImageRobustnessToolkit:
 
     def canny_edge_extraction(self, image_source, output_path=None):
         """
-        2. 边缘检测 (Canny Edge Extraction)
-        丢弃颜色纹理，仅提取高频轮廓，并反转为“白底黑线”以便识别。
+        Canny edge extraction.
+        Keep high-frequency contours while discarding color and texture distractions.
         """
         img = self._load_image(image_source)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -58,8 +58,8 @@ class ImageRobustnessToolkit:
 
     def channel_extraction(self, image_source, channel='r', output_path=None):
         """
-        3. 通道提取 (Channel Extraction)
-        分离 R、G、B 或 HSV 中的 S (饱和度) 通道。
+        Channel extraction.
+        Extract R, G, B, or the saturation channel from HSV.
         channel: 'r', 'g', 'b', or 's'
         """
         img = self._load_image(image_source)
@@ -82,8 +82,8 @@ class ImageRobustnessToolkit:
 
     def jpeg_purify(self, image_source, quality=50, output_path=None):
         """
-        4. JPEG 重编码 (JPEG Purify)
-        通过有损压缩和解压，破坏对抗样本中肉眼不可见的高频微扰动。
+        JPEG purify.
+        Re-encode through lossy compression to suppress high-frequency perturbations.
         """
         img = self._load_image(image_source)
         # Encode to buffer
@@ -97,8 +97,8 @@ class ImageRobustnessToolkit:
 
     def posterization(self, image_source, levels=4, output_path=None):
         """
-        5. 色调分离/量化 (Posterization)
-        大幅减少颜色数量（如降至 4 色），将渐变干扰合并为单一色块。
+        Posterization.
+        Reduce color levels so distracting gradients merge into larger flat regions.
         """
         img = self._load_image(image_source)
         # Simple quantization: floor(value / (256/levels)) * (256/levels)
@@ -116,8 +116,8 @@ class ImageRobustnessToolkit:
 
     def sharpening(self, image_source, output_path=None):
         """
-        6. 图像锐化 (Sharpening)
-        增强图像边缘对比度。
+        Sharpening.
+        Increase edge contrast.
         """
         img = self._load_image(image_source)
         # Kernel for sharpening
@@ -129,8 +129,8 @@ class ImageRobustnessToolkit:
 
     def anisotropic_stretch(self, image_source, scale_x=1.5, scale_y=1.0, output_path=None):
         """
-        7. 异向拉伸 (Anisotropic Stretch)
-        独立调整横向或纵向比例。
+        Anisotropic stretch.
+        Independently adjust horizontal or vertical scale.
         """
         img = self._load_image(image_source)
         height, width = img.shape[:2]
@@ -141,8 +141,8 @@ class ImageRobustnessToolkit:
 
     def grid_slice(self, image_source, rows=2, cols=2, output_dir=None):
         """
-        8. 网格切片 (Grid Slice)
-        将大图切割为多个局部小图。
+        Grid slice.
+        Split a large image into local patches.
         Returns a list of images (or paths if output_dir provided).
         """
         img = self._load_image(image_source)
@@ -175,8 +175,8 @@ class ImageRobustnessToolkit:
 
     def clahe(self, image_source, clip_limit=2.0, tile_grid_size=(8,8), output_path=None):
         """
-        9. 局部直方图均衡化 (CLAHE)
-        增强局部区域的对比度。
+        Contrast Limited Adaptive Histogram Equalization (CLAHE).
+        Enhance local contrast.
         """
         img = self._load_image(image_source)
         # CLAHE is typically applied to Lightness channel in LAB or just Gray
@@ -195,8 +195,8 @@ class ImageRobustnessToolkit:
 
     def downscale_2x(self, image_source, output_path=None):
         """
-        10. 缩小分辨率2倍 (Downscale 2x)
-        将图像长宽各缩小为原来的 1/2
+        Downscale 2x.
+        Reduce image width and height to one half of the original size.
         """
         img = self._load_image(image_source)
         height, width = img.shape[:2]
@@ -212,8 +212,8 @@ class ImageRobustnessToolkit:
 
     def downscale_4x(self, image_source, output_path=None):
         """
-        10. 缩小分辨率4倍 (Downscale 4x)
-        将图像长宽各缩小为原来的 1/4 (即分辨率缩小 16 倍，长宽缩小 4 倍)
+        Downscale 4x.
+        Reduce image width and height to one quarter of the original size.
         """
         img = self._load_image(image_source)
         height, width = img.shape[:2]
@@ -229,55 +229,54 @@ class ImageRobustnessToolkit:
 
     def morphological_closing(self, image_source, kernel_size=(3, 3), output_path=None):
         """
-        11. 形态学闭运算 (Morphological Closing)
-        修复针式打印点阵、连接断裂笔画。
+        Morphological closing.
+        Connect broken strokes and fill small gaps.
         """
         img = self._load_image(image_source)
         
-        # 1. 确保是灰度图
+        # 1. Ensure grayscale input.
         if len(img.shape) == 3:
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         else:
             gray = img
             
-        # 2. 颜色反转: OpenCV 形态学假设前景是白色的，而文档文字通常是黑色的。
+        # 2. Invert colors because OpenCV morphology treats foreground as white.
         img_inv = cv2.bitwise_not(gray)
         
-        # 3. 定义结构元素
+        # 3. Define the structuring element.
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, kernel_size)
         
-        # 4. 执行闭运算 (先膨胀后腐蚀)
+        # 4. Apply closing: dilation followed by erosion.
         closed_inv = cv2.morphologyEx(img_inv, cv2.MORPH_CLOSE, kernel)
         
-        # 5. 反转回“白底黑字”
+        # 5. Invert back to dark text on a light background.
         result = cv2.bitwise_not(closed_inv)
         
         return self._save_or_return(result, output_path)
 
     def blackhat_extraction(self, image_source, kernel_size=(15, 15), output_path=None):
         """
-        12. 黑帽变换 (Black-Hat Transform)
-        去除复杂背景底纹，提取深色文字。
+        Black-hat transform.
+        Suppress uneven background texture and extract dark text.
         """
         img = self._load_image(image_source)
         
-        # 1. 转换为灰度图
+        # 1. Convert to grayscale.
         if len(img.shape) == 3:
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         else:
             gray = img
             
-        # 2. 定义结构元素
+        # 2. Define the structuring element.
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, kernel_size)
         
-        # 3. 执行黑帽变换
-        # 结果 = 闭运算图 - 原图
+        # 3. Apply black-hat transform: closing image minus original image.
         blackhat = cv2.morphologyEx(gray, cv2.MORPH_BLACKHAT, kernel)
         
-        # 4. 增强结果: 归一化到 0-255
+        # 4. Normalize to 0-255.
         normalized = cv2.normalize(blackhat, None, 0, 255, cv2.NORM_MINMAX)
         
-        # 5. 反转为符合人类阅读习惯的“白底黑字”
+        # 5. Invert to dark text on a light background.
         result = cv2.bitwise_not(normalized)
         
         return self._save_or_return(result, output_path)

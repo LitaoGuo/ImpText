@@ -22,6 +22,13 @@ class EvaluatorTest(unittest.TestCase):
         self.assertEqual(evaluator.compute_text_match_score("abc123", "abc123"), 1)
         self.assertEqual(evaluator.compute_text_match_score("", "abc123"), 0)
 
+    def test_text_match_uses_ned_tolerance(self):
+        strict = Evaluator(match_threshold=0.1)
+        loose = Evaluator(match_threshold=0.3)
+        self.assertAlmostEqual(loose.compute_normalized_edit_distance("abc", "abcd"), 0.25)
+        self.assertEqual(strict.compute_text_match_score("abc", "abcd"), 0)
+        self.assertEqual(loose.compute_text_match_score("abc", "abcd"), 1)
+
     def test_evaluate_minimal_batch(self):
         evaluator = Evaluator(match_threshold=0.5)
         metrics = evaluator.evaluate(

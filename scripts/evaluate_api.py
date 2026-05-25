@@ -69,7 +69,7 @@ def main() -> int:
     parser.add_argument("--image-root", default="imptext_bench/images", help="Root directory containing white/ and black/ images.")
     parser.add_argument("--output-dir", default="outputs/api_eval", help="Directory for results and metrics.")
     parser.add_argument("--concurrency", type=int, default=4)
-    parser.add_argument("--threshold", type=float, default=0.5, help="TMS similarity threshold. Default: 0.5.")
+    parser.add_argument("--threshold", type=float, default=0.5, help="NED tolerance threshold tau for TMS. Default: 0.5.")
     parser.add_argument("--limit", type=int, default=0, help="Optional sample limit for smoke tests.")
     parser.add_argument("--skip-missing", action="store_true", help="Skip records whose image file is missing.")
     parser.add_argument("--dry-run", action="store_true", help="Validate inputs and exit before initializing the API client.")
@@ -128,10 +128,14 @@ def main() -> int:
             gt = build_ground_truth(sample)
             parsed = evaluator.parse_output(result["text"])
             similarity = None
+            normalized_edit_distance = None
             pass_threshold = None
             if gt["has_hidden_text"]:
                 similarity = evaluator.compute_text_similarity(parsed["hidden_content"], gt["hidden_content"])
-                pass_threshold = similarity >= args.threshold
+                normalized_edit_distance = evaluator.compute_normalized_edit_distance(
+                    parsed["hidden_content"], gt["hidden_content"]
+                )
+                pass_threshold = normalized_edit_distance <= args.threshold
             record = {
                 "id": item["id"],
                 "category": gt["category"],
@@ -140,6 +144,7 @@ def main() -> int:
                 "prediction_raw": result["text"],
                 "prediction_parsed": parsed,
                 "similarity": similarity,
+                "normalized_edit_distance": normalized_edit_distance,
                 "pass_threshold": pass_threshold,
                 "request_meta": {
                     "success": result["success"],

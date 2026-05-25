@@ -46,6 +46,7 @@ def _binary_metrics(y_true: List[bool], y_pred: List[bool]) -> Dict[str, float]:
 class Evaluator:
     def __init__(self, match_threshold: float = 0.5):
         self.match_threshold = match_threshold
+        self.ned_threshold = match_threshold
 
     def parse_output(self, text: str) -> Dict[str, Any]:
         """
@@ -79,32 +80,39 @@ class Evaluator:
             # If we really failed to parse tags, maybe fallback to searching for "Yes" or "No"
             return {"has_hidden_text": False, "hidden_content": ""}
 
-    def compute_text_similarity(self, pred: str, ref: str) -> float:
+    def compute_normalized_edit_distance(self, pred: str, ref: str) -> float:
         """
-        Compute normalized Levenshtein similarity.
-        1.0 means exact match, 0.0 means completely different.
+        Compute normalized edit distance (NED).
+        0.0 means exact match, 1.0 means maximally different.
         """
         if not pred and not ref:
-            return 1.0
-        if not pred or not ref:
             return 0.0
+        if not pred or not ref:
+            return 1.0
             
-        # 忽略空格和大小写，简单处理
+        # Normalize whitespace and case before computing edit distance.
         p = pred.lower().replace(" ", "")
         r = ref.lower().replace(" ", "")
         
         dist = _levenshtein_distance(p, r)
         max_len = max(len(p), len(r))
         if max_len == 0:
-            return 1.0
-        return 1.0 - (dist / max_len)
+            return 0.0
+        return dist / max_len
+
+    def compute_text_similarity(self, pred: str, ref: str) -> float:
+        """
+        Compute normalized Levenshtein similarity.
+        1.0 means exact match, 0.0 means maximally different.
+        """
+        return 1.0 - self.compute_normalized_edit_distance(pred, ref)
         
     def compute_text_match_score(self, pred: str, ref: str) -> int:
         """
-        Binary score based on similarity threshold.
+        Binary Text Match Score. A prediction succeeds when NED <= tau.
         """
-        sim = self.compute_text_similarity(pred, ref)
-        return 1 if sim >= self.match_threshold else 0
+        ned = self.compute_normalized_edit_distance(pred, ref)
+        return 1 if ned <= self.ned_threshold else 0
 
     def evaluate(self, predictions: List[str], ground_truths: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
@@ -112,12 +120,12 @@ class Evaluator:
         """
         from collections import defaultdict
         
-        # 全局指标容器
+        # Global metric containers.
         global_y_true = []
         global_y_pred = []
         global_match_scores = []
         
-        # 分类指标容器
+        # Per-category metric containers.
         cat_y_true = defaultdict(list)
         cat_y_pred = defaultdict(list)
         cat_match_scores = defaultdict(list)
@@ -126,7 +134,7 @@ class Evaluator:
             parsed = self.parse_output(raw_pred)
             category = gt.get("category", "Unknown")
             
-            # 1. Classification Data
+            # 1. Existence classification.
             gt_cls = gt["has_hidden_text"]
             pred_cls = parsed["has_hidden_text"]
             
@@ -135,9 +143,8 @@ class Evaluator:
             cat_y_true[category].append(gt_cls)
             cat_y_pred[category].append(pred_cls)
             
-            # 2. Text Match Data (Only for Black Samples)
+            # 2. Text match data for implicit samples.
             if gt_cls:
-                # 原有 Text Match Score (二值化)
                 score = self.compute_text_match_score(parsed["hidden_content"], gt["hidden_content"])
                 
                 global_match_scores.append(score)
@@ -159,14 +166,14 @@ class Evaluator:
             }
             return result
 
-        # 计算全局指标
+        # Global metrics.
         metrics = _calc(
             global_y_true, 
             global_y_pred, 
             global_match_scores
         )
         
-        # 计算分类指标
+        # Per-category metrics.
         metrics["categories"] = {}
         for cat in cat_y_true.keys():
             metrics["categories"][cat] = _calc(

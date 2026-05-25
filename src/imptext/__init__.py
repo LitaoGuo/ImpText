@@ -1,2 +1,1 @@
-"""ImpText public release utilities."""
-
+"""ImpText benchmark and evaluation utilities."""

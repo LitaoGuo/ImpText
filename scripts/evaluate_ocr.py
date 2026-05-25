@@ -169,7 +169,7 @@ def build_metrics(records: list[dict], threshold: float) -> dict:
     for record in implicit_records:
         gt = record["ground_truth"]
         sim = evaluator.compute_text_similarity(record.get("ocr_text", ""), gt["hidden_content"])
-        score = 1 if sim >= threshold else 0
+        score = evaluator.compute_text_match_score(record.get("ocr_text", ""), gt["hidden_content"])
         scores.append(score)
         similarities.append(sim)
         category_scores.setdefault(gt["category"], []).append(score)
@@ -205,7 +205,7 @@ def main() -> int:
     parser.add_argument("--image-root", default="imptext_bench/images")
     parser.add_argument("--output-dir", default="outputs/ocr_eval")
     parser.add_argument("--concurrency", type=int, default=4)
-    parser.add_argument("--threshold", type=float, default=0.5)
+    parser.add_argument("--threshold", type=float, default=0.5, help="NED tolerance threshold tau for TMS. Default: 0.5.")
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--skip-missing", action="store_true")
     parser.add_argument("--dry-run", action="store_true", help="Validate inputs without initializing clients or sending requests.")
