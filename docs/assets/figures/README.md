@@ -1,12 +1,9 @@
-# Figure Placeholder
+# Figure Assets
 
-Paper figure binaries are not tracked in the GitHub repository.
+Paper figure assets used by the README are tracked in the GitHub repository.
 
-The external asset package should provide:
+Included files:
 
 - `showbench.png`
 - `pipeline_imptext3.png`
 - `pipeline_imptext3.pdf`
-
-These files can be hosted with the Hugging Face dataset or added as release
-assets if needed.

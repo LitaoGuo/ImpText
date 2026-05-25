@@ -2,9 +2,11 @@
 
 **ImpText-Bench is a benchmark and evaluation toolkit for implicit text reasoning in multimodal models.**
 
-ImpText focuses on images where target text is hidden, distorted, visually camouflaged, or recoverable only through context. This GitHub repository contains the code, metadata, evaluation scripts, OCR baselines, threshold analysis, and image-enhancement tools.
+ImpText focuses on images where target text is hidden, distorted, visually camouflaged, or recoverable only through context. This GitHub repository contains the code, metadata, paper figures, evaluation scripts, OCR baselines, threshold analysis, and image-enhancement tools.
 
-Benchmark images and paper figure assets are not stored in GitHub. They will be hosted on Hugging Face and should be placed locally using the paths below after download.
+Benchmark images are not stored in GitHub. They will be hosted on Hugging Face and should be placed locally using the paths below after download.
+
+![ImpText-Bench taxonomy and representative examples](docs/assets/figures/showbench.png)
 
 ## Benchmark
 
@@ -68,7 +70,9 @@ white: 1141
 
 ## Framework Figure
 
-Paper figures are expected to be hosted with the external Hugging Face assets. The framework figure source is reserved as `pipeline_imptext3.pdf`; the GitHub repository does not track figure binaries.
+![ImpText-Reader training framework](docs/assets/figures/pipeline_imptext3.png)
+
+PDF source: [pipeline_imptext3.pdf](docs/assets/figures/pipeline_imptext3.pdf).
 
 This repository releases the benchmark metadata and evaluation utilities, but not the full ImpText-Reader training code, GRPO recipes, checkpoints, private endpoints, or internal experiment traces.
 
@@ -191,8 +195,9 @@ python scripts/evaluate_ocr.py --engine openai --model dummy --limit 3 --skip-mi
 
 ## Release Notes
 
-- GitHub tracks code and JSONL metadata only; images and figure binaries are ignored.
-- `.gitignore` prevents accidental upload of benchmark images, generated figures, PDFs, archives, and outputs.
+- GitHub tracks code, JSONL metadata, and README figure assets.
+- Benchmark images are ignored and should be hosted externally.
+- `.gitignore` prevents accidental upload of benchmark images, archives, outputs, and logs.
 - The expected image package is approximately `1.6G` locally after download.
 - For detailed paper-to-code coverage, see [PAPER_COVERAGE.md](PAPER_COVERAGE.md).
 - For the release construction analysis, see [RELEASE_ANALYSIS.md](RELEASE_ANALYSIS.md).
