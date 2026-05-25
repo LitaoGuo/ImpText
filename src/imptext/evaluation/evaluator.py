@@ -181,5 +181,27 @@ class Evaluator:
                 cat_y_pred[cat], 
                 cat_match_scores[cat]
             )
+
+        # Paper-facing summary: benign samples are reported with accuracy,
+        # while implicit categories are reported with Recall and TMS.
+        paper_metrics = {
+            "overall_f1": metrics.get("f1_score", 0.0),
+            "overall_tms": metrics.get("text_match_score", 0.0),
+            "benign_accuracy": None,
+            "benign_num_samples": 0,
+            "implicit_categories": {},
+        }
+        for cat, cat_metrics in metrics["categories"].items():
+            is_benign = cat.upper() == "BENIGN SAMPLES" or not any(cat_y_true[cat])
+            if is_benign:
+                paper_metrics["benign_accuracy"] = cat_metrics.get("accuracy", 0.0)
+                paper_metrics["benign_num_samples"] += cat_metrics.get("num_samples", 0)
+            else:
+                paper_metrics["implicit_categories"][cat] = {
+                    "recall": cat_metrics.get("recall", 0.0),
+                    "text_match_score": cat_metrics.get("text_match_score", 0.0),
+                    "num_samples": cat_metrics.get("num_samples", 0),
+                }
+        metrics["paper_metrics"] = paper_metrics
             
         return metrics

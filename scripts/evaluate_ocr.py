@@ -181,6 +181,10 @@ def build_metrics(records: list[dict], threshold: float) -> dict:
 
     return {
         "threshold": threshold,
+        "metric_notes": {
+            "ocr_text_match_score": "Primary OCR-baseline TMS for paper-table style reporting.",
+            "classification_if_nonempty_is_hidden": "Auxiliary diagnostic only; OCR paper tables report TMS rather than this derived classification score.",
+        },
         "ocr_text_match_score": sum(scores) / len(scores) if scores else 0.0,
         "mean_similarity": sum(similarities) / len(similarities) if similarities else 0.0,
         "num_samples": len(records),

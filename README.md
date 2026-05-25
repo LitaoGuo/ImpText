@@ -108,6 +108,7 @@ NED(pred, gt) = Levenshtein(pred, gt) / max(len(pred), len(gt))
 ```
 
 A recognition instance is counted as successful when `NED <= tau`. The default tolerance is `tau = 0.5`.
+Metrics files include `paper_metrics`, which separates the paper-facing view: benign samples are summarized by accuracy, while implicit categories are summarized by Recall and TMS.
 
 ```bash
 export API_KEY="..."
@@ -175,6 +176,7 @@ python scripts/evaluate_ocr.py \
 ```
 
 OCR endpoint URLs and tokens are supplied at runtime through command-line arguments and environment variables.
+For OCR baselines, use `ocr_text_match_score` and per-category `categories.*.ocr_text_match_score` as the TMS values. The `classification_if_nonempty_is_hidden` field is an auxiliary diagnostic based on whether OCR returned non-empty text; it is not the OCR-system metric reported in the paper-style table.
 
 ## Threshold Sweep
 

@@ -43,6 +43,15 @@ class EvaluatorTest(unittest.TestCase):
         )
         self.assertEqual(metrics["f1_score"], 1.0)
         self.assertEqual(metrics["text_match_score"], 1.0)
+        self.assertEqual(metrics["paper_metrics"]["benign_accuracy"], 1.0)
+        self.assertEqual(
+            metrics["paper_metrics"]["implicit_categories"]["VISUAL CAMOUFLAGE"]["recall"],
+            1.0,
+        )
+        self.assertEqual(
+            metrics["paper_metrics"]["implicit_categories"]["VISUAL CAMOUFLAGE"]["text_match_score"],
+            1.0,
+        )
 
 
 if __name__ == "__main__":
