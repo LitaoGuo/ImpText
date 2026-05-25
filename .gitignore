@@ -1,0 +1,24 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+outputs/
+logs/
+imptext_bench/*.zip
+
+# Large data/assets are hosted outside the GitHub code repository.
+imptext_bench/images/*
+!imptext_bench/images/README.md
+docs/assets/figures/*
+!docs/assets/figures/README.md
+
+# Avoid accidental binary/data uploads. Use Hugging Face or release assets.
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.pdf
+*.zip
+*.tar
+*.tar.gz
