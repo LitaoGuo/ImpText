@@ -69,7 +69,7 @@ def main() -> int:
     parser.add_argument("--image-root", default="imptext_bench/images", help="Root directory containing white/ and black/ images.")
     parser.add_argument("--output-dir", default="outputs/api_eval", help="Directory for results and metrics.")
     parser.add_argument("--concurrency", type=int, default=4)
-    parser.add_argument("--threshold", type=float, default=0.5, help="TMS similarity threshold. Paper default: 0.5.")
+    parser.add_argument("--threshold", type=float, default=0.5, help="TMS similarity threshold. Default: 0.5.")
     parser.add_argument("--limit", type=int, default=0, help="Optional sample limit for smoke tests.")
     parser.add_argument("--skip-missing", action="store_true", help="Skip records whose image file is missing.")
     parser.add_argument("--dry-run", action="store_true", help="Validate inputs and exit before initializing the API client.")
