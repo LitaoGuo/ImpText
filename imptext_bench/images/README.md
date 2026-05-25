@@ -1,8 +1,8 @@
-# Image Placeholder
+# Image Directory
 
 Benchmark images are not tracked in the GitHub repository.
 
-After the Hugging Face dataset is available, place or download images here:
+After the external image package is available, place or download images here:
 
 ```text
 imptext_bench/images/

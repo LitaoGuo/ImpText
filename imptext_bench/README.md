@@ -1,7 +1,7 @@
 # ImpText-Bench Metadata
 
-This directory contains the public JSONL manifests. The image files are not
-stored in the GitHub repository; they will be hosted separately on Hugging Face.
+This directory contains the benchmark JSONL manifests. The image files are not
+stored in the GitHub repository; they will be released separately.
 
 Expected image layout:
 
@@ -21,16 +21,12 @@ Files tracked in GitHub:
 
 - `dataset.jsonl`: full 1,630-record manifest.
 - `dataset_available.jsonl`: image-backed manifest for the external data
-  package; equivalent to `dataset.jsonl` once all Hugging Face images are
+  package; equivalent to `dataset.jsonl` once all benchmark images are
   downloaded.
 - `missing_images.txt`: expected to be empty after the external image package is
   placed under `images/`.
 
-Hugging Face dataset placeholder:
-
-```text
-https://huggingface.co/datasets/LitaoGuo/ImpText-Bench
-```
+Dataset image assets will be released separately.
 
 After downloading the image package, validate local coverage from the repository
 root:

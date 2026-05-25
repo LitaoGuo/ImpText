@@ -2,9 +2,9 @@
 
 **ImpText-Bench is a benchmark and evaluation toolkit for implicit text reasoning in multimodal models.**
 
-ImpText focuses on images where target text is hidden, distorted, visually camouflaged, or recoverable only through context. This GitHub repository contains the code, metadata, paper figures, evaluation scripts, OCR baselines, threshold analysis, and image-enhancement tools.
+ImpText focuses on images where target text is hidden, distorted, visually camouflaged, or recoverable only through context. This repository contains benchmark metadata, evaluation scripts, OCR baselines, threshold analysis, image-enhancement tools, and README figure assets.
 
-Benchmark images are not stored in GitHub. They will be hosted on Hugging Face and should be placed locally using the paths below after download.
+Benchmark images are not stored in this GitHub repository. They will be released separately and should be placed locally using the paths below after download.
 
 ![ImpText-Bench taxonomy and representative examples](docs/assets/figures/showbench.png)
 
@@ -44,11 +44,7 @@ imptext_bench/images/
   black/<id>.png
 ```
 
-Hugging Face dataset placeholder:
-
-```text
-https://huggingface.co/datasets/LitaoGuo/ImpText-Bench
-```
+Dataset image assets will be released separately.
 
 After downloading the images into `imptext_bench/images/`, check completeness:
 
@@ -74,7 +70,7 @@ white: 1141
 
 PDF source: [pipeline_imptext3.pdf](docs/assets/figures/pipeline_imptext3.pdf).
 
-This repository releases the benchmark metadata and evaluation utilities, but not the full ImpText-Reader training code, GRPO recipes, checkpoints, private endpoints, or internal experiment traces.
+This repository provides benchmark metadata and evaluation utilities. Model training code and model weights are outside the scope of this repository.
 
 ## Installation
 
@@ -192,27 +188,3 @@ python -m unittest discover -s tests
 python scripts/evaluate_api.py --model dummy --limit 3 --skip-missing --dry-run
 python scripts/evaluate_ocr.py --engine openai --model dummy --limit 3 --skip-missing --dry-run
 ```
-
-## Release Notes
-
-- GitHub tracks code, JSONL metadata, and README figure assets.
-- Benchmark images are ignored and should be hosted externally.
-- `.gitignore` prevents accidental upload of benchmark images, archives, outputs, and logs.
-- The expected image package is approximately `1.6G` locally after download.
-- For detailed paper-to-code coverage, see [PAPER_COVERAGE.md](PAPER_COVERAGE.md).
-- For the release construction analysis, see [RELEASE_ANALYSIS.md](RELEASE_ANALYSIS.md).
-
-## Citation
-
-```bibtex
-@inproceedings{guo2026imptext,
-  title={ImpText: A Benchmark and Tool-Augmented Framework for Implicit Text Reasoning},
-  author={Guo, Litao and Zhou, Jinsong and Li, Shuaibo and Chen, Man and Xu, Xinli and Zhang, Zixin and Chen, Harold Haodong and Chen, Ying-Cong},
-  booktitle={International Conference on Machine Learning},
-  year={2026}
-}
-```
-
-## License
-
-Add the final project license before publishing. If the dataset and code have different terms, place the dataset terms under `imptext_bench/` and the code license at the repository root.
