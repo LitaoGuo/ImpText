@@ -9,7 +9,7 @@ Harold Haodong Chen¹ ², Ying-Cong Chen¹ ²†
 
 ImpText studies a content-safety failure mode of multimodal large language models: high-risk text can be intentionally concealed through physical deformation, visual camouflage, or cognitive suggestion. These images are often recoverable by humans through contextual reasoning or adjusted observation, but current OCR systems and MLLMs frequently miss the target content.
 
-This repository contains the code-side artifacts for the ImpText project: ImpText-Bench metadata, evaluation scripts, OCR baselines, threshold analysis, the image-enhancement tool library, and README figure assets. Benchmark image files are distributed through the Hugging Face dataset [`Riversideli/ImpText-Bench`](https://huggingface.co/datasets/Riversideli/ImpText-Bench); after download, place them locally using the paths below.
+This repository contains the code-side artifacts for the ImpText project: ImpText-Bench metadata, evaluation scripts, OCR baselines, threshold analysis, the image-enhancement tool library, and README figure assets. Benchmark image files are distributed through the Hugging Face dataset [`ImpText-Bench`](https://huggingface.co/datasets/Riversideli/ImpText-Bench); after download, place them locally using the paths below.
 
 ![ImpText-Bench taxonomy and representative examples](docs/assets/figures/showbench.png)
 
