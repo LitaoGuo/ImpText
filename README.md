@@ -1,6 +1,12 @@
-# ImpText
+# [ICML'26] ImpText: A Benchmark and Tool-Augmented Framework for Implicit Text Reasoning
 
-**ImpText: A benchmark and tool-augmented framework for Implicit Text Reasoning.**
+Litao Guo<sup>1,*</sup>, Jinsong Zhou<sup>1,*</sup>,
+Shuaibo Li<sup>1</sup>, Man Chen<sup>1</sup>, Xinli Xu<sup>1</sup>,
+Zixin Zhang<sup>1</sup>, Harold Haodong Chen<sup>1,2</sup>,
+Ying-Cong Chen<sup>1,2,&dagger;</sup>
+
+<sup>*</sup>Equal Contribution; <sup>&dagger;</sup>Corresponding Author  
+<sup>1</sup>HKUST(GZ), <sup>2</sup>HKUST
 
 ImpText studies a content-safety failure mode of multimodal large language models: high-risk text can be intentionally concealed through physical deformation, visual camouflage, or cognitive suggestion. These images are often recoverable by humans through contextual reasoning or adjusted observation, but current OCR systems and MLLMs frequently miss the target content.
 
