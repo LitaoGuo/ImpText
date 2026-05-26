@@ -14,6 +14,11 @@ def load_jsonl(path: Path) -> list[dict]:
     return records
 
 
+def write_text(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate an ImpText-Bench manifest against local image files.")
     parser.add_argument("--dataset", default="imptext_bench/dataset.jsonl")
@@ -56,16 +61,12 @@ def main() -> int:
             print(f"  {path}")
 
     if args.write_available:
-        Path(args.write_available).write_text(
-            "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in available),
-            encoding="utf-8",
-        )
+        write_text(Path(args.write_available), "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in available))
     if args.write_missing:
-        Path(args.write_missing).write_text("\n".join(missing) + ("\n" if missing else ""), encoding="utf-8")
+        write_text(Path(args.write_missing), "\n".join(missing) + ("\n" if missing else ""))
 
     return 0 if not missing else 1
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -38,8 +38,8 @@ Files in this directory:
 
 Dataset image assets are distributed through the Hugging Face dataset.
 
-After downloading the image files, validate local coverage from the repository
-root:
+After downloading the image files into the ImpText code repository, validate
+local coverage from the code repository root:
 
 ```bash
 python scripts/check_benchmark.py \
