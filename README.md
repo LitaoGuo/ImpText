@@ -1,9 +1,9 @@
 # [ICML'26] ImpText: A Benchmark and Tool-Augmented Framework for Implicit Text Reasoning
 
-Litao Guo<sup>1,*</sup>, Jinsong Zhou<sup>1,*</sup>,
+Litao Guo<sup>1</sup><sup>*</sup>, Jinsong Zhou<sup>1</sup><sup>*</sup>,
 Shuaibo Li<sup>1</sup>, Man Chen<sup>1</sup>, Xinli Xu<sup>1</sup>,
 Zixin Zhang<sup>1</sup>, Harold Haodong Chen<sup>1,2</sup>,
-Ying-Cong Chen<sup>1,2,&dagger;</sup>
+Ying-Cong Chen<sup>1,2</sup><sup>&dagger;</sup>
 
 <sup>*</sup>Equal Contribution; <sup>&dagger;</sup>Corresponding Author  
 <sup>1</sup>HKUST(GZ), <sup>2</sup>HKUST
