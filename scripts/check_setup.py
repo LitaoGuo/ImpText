@@ -4,7 +4,7 @@ import importlib
 import sys
 
 
-REQUIRED_MODULES = ["openai", "PIL", "cv2", "numpy", "requests", "tqdm"]
+REQUIRED_MODULES = ["openai", "PIL", "cv2", "numpy", "requests", "tqdm", "huggingface_hub"]
 
 
 def main() -> int:

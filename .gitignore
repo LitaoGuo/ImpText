@@ -6,6 +6,7 @@ __pycache__/
 outputs/
 logs/
 imptext_bench/*.zip
+imptext_bench/.cache/
 
 # Benchmark image files are distributed through the Hugging Face dataset.
 imptext_bench/images/*

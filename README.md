@@ -55,7 +55,19 @@ imptext_bench/images/
   black/<id>.png
 ```
 
-Dataset image assets are distributed through the Hugging Face dataset.
+Dataset image assets are distributed through the Hugging Face dataset. To place
+the images into the layout expected by the code repository, run this from the
+repository root:
+
+```bash
+# If the dataset requires authentication:
+# hf auth login
+
+hf download Riversideli/ImpText-Bench \
+  --repo-type dataset \
+  --include "images/**" \
+  --local-dir imptext_bench
+```
 
 After downloading the images into `imptext_bench/images/`, check completeness:
 

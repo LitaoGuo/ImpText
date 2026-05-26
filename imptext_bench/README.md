@@ -36,7 +36,18 @@ Files in this directory:
 
 - `dataset.jsonl`: full 1,630-record manifest.
 
-Dataset image assets are distributed through the Hugging Face dataset.
+Dataset image assets are distributed through the Hugging Face dataset. From the
+ImpText code repository root, download the images into this directory with:
+
+```bash
+# If the dataset requires authentication:
+# hf auth login
+
+hf download Riversideli/ImpText-Bench \
+  --repo-type dataset \
+  --include "images/**" \
+  --local-dir imptext_bench
+```
 
 After downloading the image files into the ImpText code repository, validate
 local coverage from the code repository root:
