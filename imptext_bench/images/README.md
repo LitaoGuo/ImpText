@@ -1,8 +1,10 @@
 # Image Directory
 
-Benchmark images are not tracked in the GitHub repository.
+This directory is the local target for ImpText-Bench image files downloaded
+from the Hugging Face dataset
+[`Riversideli/ImpText-Bench`](https://huggingface.co/datasets/Riversideli/ImpText-Bench).
 
-After the external image package is available, place or download images here:
+Place or download images here:
 
 ```text
 imptext_bench/images/

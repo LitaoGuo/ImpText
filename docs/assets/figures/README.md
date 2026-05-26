@@ -1,6 +1,6 @@
 # Figure Assets
 
-Figure assets used by the README are tracked in the GitHub repository.
+This directory contains the figure assets used by the README.
 
 Included files:
 

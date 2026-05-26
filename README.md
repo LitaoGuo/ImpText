@@ -4,7 +4,7 @@
 
 ImpText studies a content-safety failure mode of multimodal large language models: high-risk text can be intentionally concealed through physical deformation, visual camouflage, or cognitive suggestion. These images are often recoverable by humans through contextual reasoning or adjusted observation, but current OCR systems and MLLMs frequently miss the target content.
 
-This repository contains the code-side artifacts for the ImpText project: ImpText-Bench metadata, evaluation scripts, OCR baselines, threshold analysis, the image-enhancement tool library, and README figure assets. Benchmark images are hosted outside this GitHub repository and should be placed locally using the paths below after download.
+This repository contains the code-side artifacts for the ImpText project: ImpText-Bench metadata, evaluation scripts, OCR baselines, threshold analysis, the image-enhancement tool library, and README figure assets. Benchmark image files are distributed through the Hugging Face dataset [`Riversideli/ImpText-Bench`](https://huggingface.co/datasets/Riversideli/ImpText-Bench); after download, place them locally using the paths below.
 
 ![ImpText-Bench taxonomy and representative examples](docs/assets/figures/showbench.png)
 
@@ -35,7 +35,7 @@ ImpText-Bench contains **1,630** image-text records:
 | Cognitive Suggestion | Implicit Dialogue | 42 |
 | **Total** | **All Samples** | **1,630** |
 
-The manifest lives in [imptext_bench/dataset.jsonl](imptext_bench/dataset.jsonl). Images are expected under `imptext_bench/images/` after downloading the external data package. Each line is a JSON object:
+The manifest lives in [imptext_bench/dataset.jsonl](imptext_bench/dataset.jsonl). Images are expected under `imptext_bench/images/` after downloading the Hugging Face dataset files. Each line is a JSON object:
 
 ```json
 {
@@ -55,7 +55,7 @@ imptext_bench/images/
   black/<id>.png
 ```
 
-Dataset image assets are distributed as an external package.
+Dataset image assets are distributed through the Hugging Face dataset.
 
 After downloading the images into `imptext_bench/images/`, check completeness:
 

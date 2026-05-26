@@ -1,7 +1,8 @@
 # ImpText-Bench Metadata
 
 This directory contains the benchmark JSONL manifests. The image files are
-hosted outside the GitHub code repository.
+distributed through the Hugging Face dataset
+[`Riversideli/ImpText-Bench`](https://huggingface.co/datasets/Riversideli/ImpText-Bench).
 
 Expected image layout:
 
@@ -31,22 +32,27 @@ The taxonomy follows the ImpText-Bench definition:
 | Cognitive Suggestion | Implicit Dialogue | 42 |
 | **Total** | **All Samples** | **1,630** |
 
-Files tracked in GitHub:
+Files in this directory:
 
 - `dataset.jsonl`: full 1,630-record manifest.
-- `dataset_available.jsonl`: image-backed manifest for the external data
-  package; equivalent to `dataset.jsonl` once all benchmark images are
-  downloaded.
-- `missing_images.txt`: expected to be empty after the external image package is
-  placed under `images/`.
 
-Dataset image assets are distributed as an external package.
+Dataset image assets are distributed through the Hugging Face dataset.
 
-After downloading the image package, validate local coverage from the repository
+After downloading the image files, validate local coverage from the repository
 root:
 
 ```bash
 python scripts/check_benchmark.py \
   --dataset imptext_bench/dataset.jsonl \
   --image-root imptext_bench/images
+```
+
+If needed, the same script can write local diagnostic manifests:
+
+```bash
+python scripts/check_benchmark.py \
+  --dataset imptext_bench/dataset.jsonl \
+  --image-root imptext_bench/images \
+  --write-available outputs/available_records.jsonl \
+  --write-missing outputs/missing_image_paths.txt
 ```

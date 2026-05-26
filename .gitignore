@@ -7,7 +7,7 @@ outputs/
 logs/
 imptext_bench/*.zip
 
-# Benchmark images are hosted outside the GitHub code repository.
+# Benchmark image files are distributed through the Hugging Face dataset.
 imptext_bench/images/*
 !imptext_bench/images/README.md
 
