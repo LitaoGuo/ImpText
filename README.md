@@ -2,7 +2,7 @@
 
 Litao Guo¹*, Jinsong Zhou¹*,
 Shuaibo Li¹, Man Chen¹, Xinli Xu¹, Zixin Zhang¹,
-Harold Haodong Chen¹,², Ying-Cong Chen¹,²†
+Harold Haodong Chen¹ ², Ying-Cong Chen¹ ²†
 
 *Equal Contribution; †Corresponding Author  
 ¹HKUST(GZ), ²HKUST
